@@ -54,6 +54,20 @@
             0%, 100% { opacity: 0.1; }
             50% { opacity: 0.3; }
         }
+
+        .page-view {
+            display: none;
+        }
+
+        .page-view.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="dark">
@@ -67,7 +81,7 @@
     <!-- Navigation -->
     <header class="sticky top-0 z-50 glass border-b border-white/10">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
                 <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
                     <i data-lucide="book-open" class="text-white w-5 h-5"></i>
                 </div>
@@ -78,9 +92,9 @@
             </div>
 
             <nav class="hidden md:flex items-center gap-8">
-                <a href="#" class="text-sm font-bold uppercase tracking-widest text-indigo-500">Home</a>
-                <a href="#" class="text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-indigo-400 transition-colors">Vault</a>
-                <a href="#" class="text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-indigo-400 transition-colors">Governance</a>
+                <a href="javascript:void(0)" onclick="showPage('home')" id="nav-home" class="nav-link text-sm font-bold uppercase tracking-widest text-indigo-500">Home</a>
+                <a href="javascript:void(0)" onclick="showPage('vault')" id="nav-vault" class="nav-link text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-indigo-400 transition-colors">Vault</a>
+                <a href="javascript:void(0)" onclick="showPage('governance')" id="nav-governance" class="nav-link text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-indigo-400 transition-colors">Governance</a>
             </nav>
 
             <div class="flex items-center gap-4">
@@ -96,8 +110,8 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-6 py-20">
+    <!-- Page: Home -->
+    <main id="home-page" class="page-view active max-w-7xl mx-auto px-6 py-20">
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 text-[10px] font-black uppercase tracking-widest mb-8">
@@ -107,12 +121,12 @@
                 <h1 class="text-6xl md:text-8xl font-extrabold mb-8 tracking-tighter leading-[0.9]">
                     SECURE YOUR <br> <span class="hero-gradient">INTELLECT</span> <br> ON-CHAIN.
                 </h1>
-                <p class="text-lg text-zinc-500 dark:text-zinc-400 max-w-lg mb-10 leading-relaxed">
+                <p class="text-lg text-zinc-500 dark:text-zinc-400 max-lg mb-10 leading-relaxed">
                     Decentralized verification for academic research. Authorship proofs, tokenized peer reviews, and immutable credentials.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <button class="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-extrabold hover:-translate-y-1 transition-all flex items-center gap-2">
-                        Enter Portal <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    <button onclick="showPage('vault')" class="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-extrabold hover:-translate-y-1 transition-all flex items-center gap-2">
+                        Enter Vault <i data-lucide="arrow-right" class="w-5 h-5"></i>
                     </button>
                     <button class="px-8 py-4 glass rounded-2xl font-extrabold hover:bg-white/10 transition-all">
                         Documentation
@@ -170,6 +184,117 @@
         </section>
     </main>
 
+    <!-- Page: Vault -->
+    <main id="vault-page" class="page-view max-w-7xl mx-auto px-6 py-20">
+        <div class="mb-12">
+            <h2 class="text-4xl font-black tracking-tight mb-2">Research Vault</h2>
+            <p class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Access immutable academic records</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Search -->
+                <div class="relative">
+                    <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 w-5 h-5"></i>
+                    <input type="text" placeholder="Search by paper hash, title, or author..." class="w-full bg-transparent glass rounded-2xl py-4 pl-12 pr-6 border-zinc-200 dark:border-zinc-800 focus:border-indigo-500 outline-none transition-all">
+                </div>
+
+                <!-- Paper List -->
+                <div class="space-y-4">
+                    <div class="glass p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-indigo-500/30 transition-all cursor-pointer">
+                        <div>
+                            <span class="text-[10px] font-black text-indigo-500 uppercase">Computer Science</span>
+                            <h4 class="text-lg font-bold">On the Scalability of zk-STARKs in Academic Credentialing</h4>
+                            <p class="text-sm text-zinc-500">Author: 0x82...e9a1 • 2 days ago</p>
+                        </div>
+                        <button class="px-4 py-2 bg-indigo-500/10 text-indigo-500 rounded-lg text-sm font-bold flex items-center gap-2">
+                            <i data-lucide="download" class="w-4 h-4"></i> View PDF
+                        </button>
+                    </div>
+                    <div class="glass p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-indigo-500/30 transition-all cursor-pointer">
+                        <div>
+                            <span class="text-[10px] font-black text-purple-500 uppercase">Economics</span>
+                            <h4 class="text-lg font-bold">Tokenomics of Reputation: A Game Theoretic Approach</h4>
+                            <p class="text-sm text-zinc-500">Author: 0x31...f2c4 • 5 days ago</p>
+                        </div>
+                        <button class="px-4 py-2 bg-indigo-500/10 text-indigo-500 rounded-lg text-sm font-bold flex items-center gap-2">
+                            <i data-lucide="download" class="w-4 h-4"></i> View PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <div class="glass p-8 rounded-3xl">
+                    <h5 class="text-sm font-black uppercase tracking-widest mb-6">Upload Research</h5>
+                    <div class="border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl p-8 text-center hover:border-indigo-500/50 transition-all cursor-pointer">
+                        <i data-lucide="cloud-upload" class="w-8 h-8 text-zinc-500 mx-auto mb-4"></i>
+                        <p class="text-sm font-bold">Drop PDF or Click to Upload</p>
+                        <p class="text-xs text-zinc-500 mt-2">Max size: 50MB</p>
+                    </div>
+                    <button class="w-full mt-6 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/20">Sign & Commit</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Governance -->
+    <main id="governance-page" class="page-view max-w-7xl mx-auto px-6 py-20">
+        <div class="mb-12">
+            <h2 class="text-4xl font-black tracking-tight mb-2">Protocol Governance</h2>
+            <p class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Shape the future of Gemini Academy</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs font-bold text-zinc-500 uppercase mb-2">Total GEMS Staked</p>
+                <p class="text-2xl font-black">4,209,100</p>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs font-bold text-zinc-500 uppercase mb-2">Active Proposals</p>
+                <p class="text-2xl font-black">12</p>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs font-bold text-zinc-500 uppercase mb-2">Community APR</p>
+                <p class="text-2xl font-black text-emerald-500">12.4%</p>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold">Active Proposals</h3>
+                <button class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold">Create Proposal</button>
+            </div>
+
+            <div class="glass p-8 rounded-3xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4">
+                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-full text-[10px] font-black uppercase tracking-widest">Active</span>
+                </div>
+                <div class="max-w-2xl">
+                    <span class="text-[10px] font-black text-zinc-500 uppercase">GAP-24</span>
+                    <h4 class="text-2xl font-black mt-2 mb-4">Allocate 500 ETH for Early Stage Research Grants</h4>
+                    <p class="text-zinc-500 text-sm mb-8 leading-relaxed">Proposal to establish a sub-DAO focused on funding peer-reviewed research in renewable energy cryptography.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs font-bold uppercase mb-1">
+                            <span>For (82%)</span>
+                            <span>3.4M GEMS</span>
+                        </div>
+                        <div class="w-full h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-500" style="width: 82%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex gap-4">
+                        <button class="px-6 py-2.5 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 rounded-xl text-sm font-bold hover:scale-105 transition-transform">Vote For</button>
+                        <button class="px-6 py-2.5 glass rounded-xl text-sm font-bold hover:scale-105 transition-transform">Vote Against</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <script>
         // --- Initialization ---
         lucide.createIcons();
@@ -195,6 +320,28 @@
             updateThemeIcons();
         });
 
+        // --- Routing Logic ---
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(`${pageId}-page`).classList.add('active');
+
+            // Update Nav Links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('text-indigo-500');
+                link.classList.add('text-zinc-500');
+            });
+            document.getElementById(`nav-${pageId}`).classList.remove('text-zinc-500');
+            document.getElementById(`nav-${pageId}`).classList.add('text-indigo-500');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
         // --- Web3 Logic ---
         async function connectWallet() {
             if (typeof window.ethereum !== 'undefined') {
@@ -202,11 +349,9 @@
                     connectBtn.innerHTML = `<span>Connecting...</span>`;
                     connectBtn.classList.add('opacity-50', 'cursor-wait');
                     
-                    // Request accounts
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const account = accounts[0];
                     
-                    // Update UI
                     connectBtn.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>${account.substring(0,6)}...${account.substring(38)}</span>`;
                     connectBtn.classList.remove('bg-indigo-600', 'opacity-50', 'cursor-wait');
                     connectBtn.classList.add('bg-zinc-800');
@@ -217,7 +362,6 @@
                     connectBtn.innerHTML = `<i data-lucide="wallet" class="w-4 h-4"></i><span>Connect Wallet</span>`;
                 }
             } else {
-                // Fallback for no wallet
                 const fallbackModal = document.createElement('div');
                 fallbackModal.className = "fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4";
                 fallbackModal.innerHTML = `
