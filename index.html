@@ -75,9 +75,22 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
 
+        .doc-card {
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         .doc-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.5);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .proposal-card {
+            border-left: 4px solid transparent;
+        }
+        .proposal-card:hover {
+            border-left-color: #6366f1;
         }
     </style>
 </head>
@@ -109,10 +122,6 @@
             </nav>
 
             <div class="flex items-center gap-4">
-                <button id="themeToggle" class="p-2.5 rounded-xl glass hover:scale-110 transition-transform">
-                    <i data-lucide="sun" id="sunIcon" class="w-5 h-5 hidden"></i>
-                    <i data-lucide="moon" id="moonIcon" class="w-5 h-5"></i>
-                </button>
                 <button id="connectBtn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-extrabold rounded-xl transition-all shadow-lg shadow-indigo-500/20 flex items-center gap-2">
                     <i data-lucide="wallet" class="w-4 h-4"></i>
                     <span id="walletText">Connect Wallet</span>
@@ -133,7 +142,7 @@
                     SECURE YOUR <br> <span class="hero-gradient">INTELLECT</span> <br> ON-CHAIN.
                 </h1>
                 <p class="text-lg text-zinc-500 dark:text-zinc-400 max-w-lg mb-10 leading-relaxed">
-                    Decentralized verification for academic research. Authorship proofs, tokenized peer reviews, and immutable credentials powered by ZK-proofs.
+                    Decentralized verification for academic research. Authorship proofs and immutable credentials powered by ZK-proofs.
                 </p>
                 <div class="flex flex-wrap gap-4">
                     <button onclick="showPage('vault')" class="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-extrabold hover:-translate-y-1 transition-all flex items-center gap-2 shadow-xl shadow-indigo-500/20">
@@ -154,15 +163,11 @@
                     <div class="space-y-4">
                         <div class="p-4 glass rounded-2xl flex justify-between items-center border-white/5">
                             <span class="text-sm font-bold">Validated Papers</span>
-                            <span class="text-xl font-black text-indigo-500" id="stat-papers">248,102</span>
+                            <span class="text-xl font-black text-indigo-500">248,102</span>
                         </div>
                         <div class="p-4 glass rounded-2xl flex justify-between items-center border-white/5">
-                            <span class="text-sm font-bold">Active Researchers</span>
-                            <span class="text-xl font-black text-purple-500">12,440</span>
-                        </div>
-                        <div class="p-4 glass rounded-2xl flex justify-between items-center border-white/5">
-                            <span class="text-sm font-bold">DAO Treasury</span>
-                            <span class="text-xl font-black text-emerald-500">1,240 ETH</span>
+                            <span class="text-sm font-bold">Active Governance Proposals</span>
+                            <span class="text-xl font-black text-purple-500">12</span>
                         </div>
                     </div>
                 </div>
@@ -174,30 +179,42 @@
     <main id="docs-page" class="page-view max-w-7xl mx-auto px-6 py-20">
         <div class="mb-12">
             <h2 class="text-4xl font-black tracking-tight mb-2">Protocol Documentation</h2>
-            <p class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Understanding the Proof of Intellect</p>
+            <p class="text-zinc-500 uppercase tracking-widest text-xs font-bold">The Core Attributes of Gemini Academy</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="glass p-8 rounded-3xl doc-card transition-all border-white/5">
-                <h4 class="text-xl font-black mb-4 flex items-center gap-3">
-                    <i data-lucide="cpu" class="text-indigo-500"></i> Architecture
-                </h4>
-                <p class="text-zinc-500 text-sm leading-relaxed mb-6">Gemini Academy utilizes Layer 2 rollups to store research hashes with near-zero gas costs while inheriting Ethereum security.</p>
-                <a href="#" class="text-indigo-500 font-bold text-sm flex items-center gap-2">Read Technical Specs <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+            <!-- Doc Attribute 1 -->
+            <div class="glass p-8 rounded-3xl doc-card border-white/5" onclick="openDocSummary('Architecture')">
+                <div class="w-12 h-12 bg-indigo-600/10 rounded-xl flex items-center justify-center mb-6">
+                    <i data-lucide="cpu" class="text-indigo-500"></i>
+                </div>
+                <h4 class="text-xl font-black mb-3">On-Chain Architecture</h4>
+                <p class="text-zinc-500 text-sm leading-relaxed mb-6">Built on high-throughput L2 rollups with Arweave integration for permanent storage.</p>
+                <div class="flex items-center text-indigo-500 font-bold text-xs uppercase tracking-widest">
+                    View Summary <i data-lucide="arrow-up-right" class="ml-2 w-3 h-3"></i>
+                </div>
             </div>
-            <div class="glass p-8 rounded-3xl doc-card transition-all border-white/5">
-                <h4 class="text-xl font-black mb-4 flex items-center gap-3">
-                    <i data-lucide="lock" class="text-purple-500"></i> ZK-Privacy
-                </h4>
-                <p class="text-zinc-500 text-sm leading-relaxed mb-6">Submit reviews anonymously using zero-knowledge proofs. Validated by peers without compromising identity.</p>
-                <a href="#" class="text-purple-500 font-bold text-sm flex items-center gap-2">Privacy Guide <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+            <!-- Doc Attribute 2 -->
+            <div class="glass p-8 rounded-3xl doc-card border-white/5" onclick="openDocSummary('Verification')">
+                <div class="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center mb-6">
+                    <i data-lucide="shield-check" class="text-purple-500"></i>
+                </div>
+                <h4 class="text-xl font-black mb-3">ZK-Verification</h4>
+                <p class="text-zinc-500 text-sm leading-relaxed mb-6">Utilizing Groth16 proofs to verify authorship without revealing sensitive private keys.</p>
+                <div class="flex items-center text-purple-500 font-bold text-xs uppercase tracking-widest">
+                    View Summary <i data-lucide="arrow-up-right" class="ml-2 w-3 h-3"></i>
+                </div>
             </div>
-            <div class="glass p-8 rounded-3xl doc-card transition-all border-white/5">
-                <h4 class="text-xl font-black mb-4 flex items-center gap-3">
-                    <i data-lucide="coins" class="text-emerald-500"></i> Tokenomics
-                </h4>
-                <p class="text-zinc-500 text-sm leading-relaxed mb-6">Learn about GEMS utility, staking rewards for curators, and grant allocation through DAO voting.</p>
-                <a href="#" class="text-emerald-500 font-bold text-sm flex items-center gap-2">Economic Model <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+            <!-- Doc Attribute 3 -->
+            <div class="glass p-8 rounded-3xl doc-card border-white/5" onclick="openDocSummary('Incentives')">
+                <div class="w-12 h-12 bg-emerald-600/10 rounded-xl flex items-center justify-center mb-6">
+                    <i data-lucide="gem" class="text-emerald-500"></i>
+                </div>
+                <h4 class="text-xl font-black mb-3">Reward Mechanism</h4>
+                <p class="text-zinc-500 text-sm leading-relaxed mb-6">The GEMS token incentivizes peer review quality and long-term node hosting.</p>
+                <div class="flex items-center text-emerald-500 font-bold text-xs uppercase tracking-widest">
+                    View Summary <i data-lucide="arrow-up-right" class="ml-2 w-3 h-3"></i>
+                </div>
             </div>
         </div>
     </main>
@@ -207,56 +224,25 @@
         <div class="mb-12 flex justify-between items-end">
             <div>
                 <h2 class="text-4xl font-black tracking-tight mb-2">Research Vault</h2>
-                <p class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Access immutable academic records</p>
-            </div>
-            <div class="text-right">
-                <span class="text-xs font-bold text-zinc-400 block mb-1">STAMPED ON</span>
-                <code class="text-indigo-500 font-bold bg-indigo-500/10 px-3 py-1 rounded-lg">ETHEREUM MAINNET</code>
+                <p class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Secure Research Repository</p>
             </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-2 space-y-6">
-                <div class="relative group">
-                    <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 w-5 h-5 group-focus-within:text-indigo-500 transition-colors"></i>
-                    <input type="text" id="vault-search" placeholder="Search by paper hash, title, or author..." class="w-full bg-transparent glass rounded-2xl py-4 pl-12 pr-6 border-zinc-200 dark:border-zinc-800 focus:border-indigo-500 outline-none transition-all">
-                </div>
                 <div id="paper-list" class="space-y-4"></div>
             </div>
 
             <div class="space-y-6">
                 <div class="glass p-8 rounded-3xl sticky top-28 border-white/5">
-                    <h5 class="text-sm font-black uppercase tracking-widest mb-6 flex items-center gap-2">
-                        <i data-lucide="upload-cloud" class="w-4 h-4 text-indigo-500"></i>
-                        Publish Research
-                    </h5>
-                    
-                    <div id="drop-zone" class="border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl p-8 text-center hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all cursor-pointer">
-                        <input type="file" id="file-input" class="hidden" accept=".pdf,.doc,.docx">
-                        <div id="upload-idle">
-                            <i data-lucide="file-text" class="w-10 h-10 text-zinc-500 mx-auto mb-4"></i>
-                            <p class="text-sm font-bold">Drop PDF or Click</p>
-                            <p class="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest font-bold">Max size: 50MB</p>
-                        </div>
-                        <div id="upload-selected" class="hidden">
-                            <p id="file-name-display" class="text-indigo-500 font-bold text-sm truncate mb-2"></p>
-                            <p class="text-[10px] text-emerald-500 font-black uppercase">Ready to Commit</p>
-                        </div>
+                    <h5 class="text-sm font-black uppercase tracking-widest mb-6">Publish Research</h5>
+                    <div id="drop-zone" class="border-2 border-dashed border-zinc-800 rounded-2xl p-8 text-center hover:border-indigo-500/50 cursor-pointer">
+                        <input type="file" id="file-input" class="hidden">
+                        <i data-lucide="file-plus" class="w-8 h-8 mx-auto mb-2 text-zinc-500"></i>
+                        <p class="text-xs font-bold">Upload Document</p>
                     </div>
-
-                    <div class="mt-6 space-y-3">
-                        <input type="text" id="paper-title-input" placeholder="Document Title" class="w-full bg-transparent glass rounded-xl py-3 px-4 border-zinc-800 outline-none text-sm focus:border-indigo-500">
-                        <select id="paper-tag-input" class="w-full bg-transparent glass rounded-xl py-3 px-4 border-zinc-800 outline-none text-sm focus:border-indigo-500">
-                            <option value="Computer Science">Computer Science</option>
-                            <option value="Economics">Economics</option>
-                            <option value="Physics">Physics</option>
-                            <option value="Biology">Biology</option>
-                        </select>
-                    </div>
-
-                    <button id="commit-btn" class="w-full mt-6 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i data-lucide="key" class="w-4 h-4"></i> Sign & Commit
-                    </button>
+                    <input type="text" id="paper-title-input" placeholder="Title" class="w-full mt-4 bg-transparent glass rounded-xl py-3 px-4 text-sm border-zinc-800 focus:border-indigo-500 outline-none">
+                    <button id="commit-btn" class="w-full mt-4 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30">Sign & Commit</button>
                 </div>
             </div>
         </div>
@@ -264,14 +250,80 @@
 
     <!-- Page: Governance -->
     <main id="governance-page" class="page-view max-w-7xl mx-auto px-6 py-20">
-        <div class="mb-12">
-            <h2 class="text-4xl font-black tracking-tight mb-2">Protocol Governance</h2>
-            <p class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Decentralized Decision Engine</p>
+        <div class="mb-12 flex justify-between items-center">
+            <div>
+                <h2 class="text-4xl font-black tracking-tight mb-2">Governance</h2>
+                <p class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Shape the future of Decentralized Academia</p>
+            </div>
+            <button class="px-6 py-3 bg-white text-black rounded-xl font-bold text-sm hover:bg-zinc-200 transition-colors">Create Proposal</button>
         </div>
-        <div id="proposals-list" class="space-y-6"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Stats -->
+            <div class="space-y-6">
+                <div class="glass p-6 rounded-2xl border-white/5">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Voting Power</span>
+                    <h4 class="text-2xl font-black mt-1">45.2k GEMS</h4>
+                </div>
+                <div class="glass p-6 rounded-2xl border-white/5">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Total Delegated</span>
+                    <h4 class="text-2xl font-black mt-1">1.2M GEMS</h4>
+                </div>
+            </div>
+
+            <!-- Proposals List -->
+            <div class="lg:col-span-3 space-y-4" id="governance-list">
+                <!-- Proposal Item 1 -->
+                <div class="glass p-6 rounded-2xl proposal-card border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-3">
+                            <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-500 text-[10px] font-black rounded uppercase">Active</span>
+                            <span class="text-zinc-500 text-xs font-bold">ID: 024</span>
+                        </div>
+                        <h4 class="text-xl font-bold">Upgrade Storage Layer to Arweave Bundlr</h4>
+                        <p class="text-sm text-zinc-500 max-w-xl">Migration proposal to lower data anchoring costs by 40% through Bundlr Network integration.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="vote('yes')" class="px-6 py-2.5 bg-zinc-800 hover:bg-emerald-600/20 text-white rounded-xl text-xs font-bold transition-all">For</button>
+                        <button onclick="vote('no')" class="px-6 py-2.5 bg-zinc-800 hover:bg-red-600/20 text-white rounded-xl text-xs font-bold transition-all">Against</button>
+                    </div>
+                </div>
+                <!-- Proposal Item 2 -->
+                <div class="glass p-6 rounded-2xl proposal-card border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 opacity-60">
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-3">
+                            <span class="px-2 py-0.5 bg-zinc-500/10 text-zinc-500 text-[10px] font-black rounded uppercase">Passed</span>
+                            <span class="text-zinc-500 text-xs font-bold">ID: 023</span>
+                        </div>
+                        <h4 class="text-xl font-bold">Double GEMS Staking Rewards</h4>
+                        <p class="text-sm text-zinc-500 max-w-xl">Incentive program to increase total value locked in the security pool.</p>
+                    </div>
+                    <div class="flex items-center text-zinc-400 text-xs font-black uppercase tracking-widest">
+                        Execution Complete
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- Modal: File Viewer (The "Real Action") -->
+    <!-- Modal: Documentation Summary Choice -->
+    <div id="doc-modal" class="fixed inset-0 z-[120] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeDocModal()"></div>
+        <div class="glass w-full max-w-2xl rounded-[2.5rem] relative z-10 border-white/10 shadow-2xl p-10 overflow-hidden">
+            <div id="doc-modal-header" class="mb-8">
+                <h3 id="doc-modal-title" class="text-3xl font-black mb-2">Attribute Title</h3>
+                <div class="h-1 w-20 bg-indigo-500 rounded-full"></div>
+            </div>
+            <div id="doc-modal-content" class="text-zinc-400 leading-relaxed text-lg space-y-4">
+                <!-- Summary content injected here -->
+            </div>
+            <button onclick="closeDocModal()" class="mt-10 w-full py-4 glass border-white/5 hover:bg-white/10 text-zinc-300 font-black rounded-2xl transition-all">
+                Close Documentation
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal: File Viewer -->
     <div id="file-viewer-modal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/90 backdrop-blur-xl" onclick="closeFileViewer()"></div>
         <div class="glass w-full max-w-5xl h-[80vh] rounded-[2rem] relative z-10 border-white/10 shadow-2xl flex flex-col overflow-hidden">
@@ -285,35 +337,14 @@
                         <p id="view-meta" class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Hash: 0x...</p>
                     </div>
                 </div>
-                <button onclick="closeFileViewer()" class="p-3 glass rounded-xl hover:bg-red-500/20 transition-colors">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+                <button onclick="closeFileViewer()" class="p-3 glass rounded-xl hover:bg-red-500/20"><i data-lucide="x"></i></button>
             </div>
-            
             <div id="viewer-content" class="flex-1 overflow-y-auto p-12 bg-zinc-950/50">
-                <!-- Simulating a high-quality PDF text display -->
-                <div class="max-w-3xl mx-auto space-y-8 animate-fadeIn">
-                    <div class="h-8 bg-zinc-800/50 w-3/4 rounded-full"></div>
-                    <div class="h-4 bg-zinc-800/30 w-full rounded-full"></div>
-                    <div class="h-4 bg-zinc-800/30 w-5/6 rounded-full"></div>
-                    <div class="h-4 bg-zinc-800/30 w-full rounded-full"></div>
-                    <div class="pt-12 border-t border-white/5 space-y-4">
-                        <p class="text-zinc-400 italic">This document is encrypted with the protocol's master key. Viewing a verified preview generated from IPFS/Arweave nodes.</p>
-                        <p class="text-zinc-300 leading-relaxed text-lg">ABSTRACT: In this research paper, we explore the convergence of zero-knowledge proofs and academic validation. By anchoring research metadata on-chain, we create an immutable timeline of authorship that precedes traditional publishing journals...</p>
-                        <div class="h-64 bg-indigo-500/5 border border-indigo-500/10 rounded-3xl flex items-center justify-center">
-                            <i data-lucide="shield-check" class="w-12 h-12 text-indigo-500/20"></i>
-                        </div>
+                <div class="max-w-2xl mx-auto space-y-6">
+                    <div class="p-8 border border-white/5 rounded-3xl bg-white/5">
+                        <p class="text-zinc-300 italic mb-4">Verification Certificate Attached</p>
+                        <p class="text-zinc-400 leading-relaxed">This research artifact has been successfully committed to the Gemini Academy protocol. It is currently anchored in the decentralized web via IPFS. Any changes to the file structure will invalidate its unique on-chain hash certificate.</p>
                     </div>
-                </div>
-            </div>
-            
-            <div class="p-6 border-t border-white/5 flex justify-between items-center glass">
-                <div class="flex gap-4">
-                    <button class="px-6 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Download Verified Copy</button>
-                    <button class="px-6 py-2 glass rounded-xl text-xs font-bold">View on IPFS</button>
-                </div>
-                <div class="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-2">
-                    <i data-lucide="check-circle" class="w-4 h-4"></i> Integrity Verified
                 </div>
             </div>
         </div>
@@ -324,16 +355,28 @@
 
     <script>
         // --- DATA ---
-        let currentAccount = null;
         let papers = [
-            { id: 1, title: "On the Scalability of zk-STARKs in Academic Credentialing", tag: "Computer Science", author: "0x82...e9a1", date: "2 days ago", hash: "0x7a2...f81", content: "ZK-STARKs offer a compelling scaling solution..." },
-            { id: 2, title: "Tokenomics of Reputation: A Game Theoretic Approach", tag: "Economics", author: "0x31...f2c4", date: "5 days ago", hash: "0x1d4...c09", content: "Reputation systems in DAOs often suffer from..." }
+            { id: 1, title: "On the Scalability of zk-STARKs", tag: "Computer Science", author: "0x82...e9a1", hash: "0x7a2...f81" },
+            { id: 2, title: "Tokenomics of Reputation", tag: "Economics", author: "0x31...f2c4", hash: "0x1d4...c09" }
         ];
+
+        const docDetails = {
+            'Architecture': {
+                summary: "Gemini Academy uses a dual-layer approach. The **Execution Layer** manages rapid paper submission and peer review tracking via zk-Rollups, while the **Persistence Layer** utilizes Arweave for permanent document storage. This ensures your research stays online forever without recurring fees.",
+                attributes: ["Permanent storage", "L2 Scaling", "Modular security"]
+            },
+            'Verification': {
+                summary: "Our verification engine uses **Non-Interactive Zero-Knowledge Proofs (NIZKPs)**. This allows researchers to prove they are the original authors of a paper or that they possess a specific degree without revealing their full private identity to the public ledger.",
+                attributes: ["ZK-Snarks/Starks", "Private authorship", "Identity proofing"]
+            },
+            'Incentives': {
+                summary: "The protocol operates on the **GEMS Utility Token**. GEMS are earned by high-quality peer reviewers and dedicated storage nodes. The treasury, governed by the DAO, allocates these tokens to research grants and protocol upgrades.",
+                attributes: ["Staking rewards", "Treasury grants", "Fee distribution"]
+            }
+        };
 
         // --- CORE UI ---
         lucide.createIcons();
-        const connectBtn = document.getElementById('connectBtn');
-        const walletText = document.getElementById('walletText');
 
         function showPage(pageId) {
             document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
@@ -347,114 +390,81 @@
             window.scrollTo(0, 0);
         }
 
-        // --- FILE ACCESS LOGIC ---
+        // --- DOC MODAL ---
+        function openDocSummary(attr) {
+            const data = docDetails[attr];
+            const modal = document.getElementById('doc-modal');
+            document.getElementById('doc-modal-title').innerText = attr;
+            document.getElementById('doc-modal-content').innerHTML = `
+                <p>${data.summary}</p>
+                <div class="pt-4 grid grid-cols-1 gap-2">
+                    ${data.attributes.map(a => `<div class="flex items-center gap-2 text-xs font-bold text-indigo-400 uppercase tracking-widest"><i data-lucide="check" class="w-3 h-3"></i> ${a}</div>`).join('')}
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeDocModal() {
+            document.getElementById('doc-modal').classList.add('hidden');
+            document.getElementById('doc-modal').classList.remove('flex');
+        }
+
+        // --- VAULT & VIEWER ---
         function openFileViewer(id) {
             const paper = papers.find(p => p.id === id);
-            if (!paper) return;
-
-            showToast("Decrypting", "Initializing node retrieval...");
-            
+            showToast("Decrypting", "Retrieving node shards...");
             setTimeout(() => {
                 const modal = document.getElementById('file-viewer-modal');
                 document.getElementById('view-title').innerText = paper.title;
-                document.getElementById('view-meta').innerText = `HASH: ${paper.hash} | ${paper.tag}`;
-                
+                document.getElementById('view-meta').innerText = `HASH: ${paper.hash}`;
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
-                lucide.createIcons();
-            }, 800);
+            }, 600);
         }
 
         function closeFileViewer() {
-            const modal = document.getElementById('file-viewer-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            document.getElementById('file-viewer-modal').classList.add('hidden');
         }
 
-        // --- VAULT LOGIC ---
-        const dropZone = document.getElementById('drop-zone');
-        const fileInput = document.getElementById('file-input');
-        const commitBtn = document.getElementById('commit-btn');
-        let selectedFile = null;
-
-        dropZone.onclick = () => fileInput.click();
-        fileInput.onchange = (e) => {
-            selectedFile = e.target.files[0];
-            if (selectedFile) {
-                document.getElementById('upload-idle').classList.add('hidden');
-                document.getElementById('upload-selected').classList.remove('hidden');
-                document.getElementById('file-name-display').innerText = selectedFile.name;
-            }
-        };
-
-        commitBtn.onclick = async () => {
-            const titleInput = document.getElementById('paper-title-input');
-            const tagInput = document.getElementById('paper-tag-input');
-            if (!selectedFile || !titleInput.value) return showToast("Error", "Check inputs", "error");
-
-            commitBtn.disabled = true;
-            commitBtn.innerText = "Signing Transaction...";
-            
+        // --- VAULT ACTIONS ---
+        document.getElementById('commit-btn').onclick = () => {
+            const title = document.getElementById('paper-title-input').value;
+            if (!title) return;
+            showToast("Signing", "Awaiting wallet signature...");
             setTimeout(() => {
-                const newPaper = {
-                    id: Date.now(),
-                    title: titleInput.value,
-                    tag: tagInput.value,
-                    author: currentAccount ? `${currentAccount.substring(0,6)}...` : "Anonymous",
-                    date: "Just now",
-                    hash: "0x" + Math.random().toString(16).slice(2, 10) + "..."
-                };
-                papers.unshift(newPaper);
+                papers.unshift({ id: Date.now(), title, tag: "Recent Upload", author: "0xYou", hash: "0xNEW..." });
                 renderPapers();
-                showToast("Success", "Anchored to Arweave.");
-                
-                // Reset
-                selectedFile = null;
-                titleInput.value = "";
-                document.getElementById('upload-idle').classList.remove('hidden');
-                document.getElementById('upload-selected').classList.add('hidden');
-                commitBtn.disabled = false;
-                commitBtn.innerText = "Sign & Commit";
-            }, 1200);
+                document.getElementById('paper-title-input').value = "";
+                showToast("Success", "Paper committed to ledger.");
+            }, 1000);
         };
 
         function renderPapers() {
             const list = document.getElementById('paper-list');
             list.innerHTML = papers.map(p => `
-                <div class="glass p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-indigo-500/30 transition-all border-white/5 group">
+                <div class="glass p-6 rounded-2xl flex justify-between items-center border-white/5">
                     <div>
-                        <span class="text-[10px] font-black text-indigo-500 uppercase">${p.tag}</span>
+                        <span class="text-[10px] font-black text-indigo-500 uppercase tracking-widest">${p.tag}</span>
                         <h4 class="text-lg font-bold">${p.title}</h4>
-                        <p class="text-sm text-zinc-500">Author: ${p.author}</p>
-                        <code class="text-[10px] text-zinc-600 mt-2 block font-mono">${p.hash}</code>
                     </div>
-                    <button onclick="openFileViewer(${p.id})" class="px-6 py-2.5 bg-indigo-500/10 text-indigo-500 rounded-xl text-sm font-black flex items-center gap-2 group-hover:bg-indigo-500 group-hover:text-white transition-all">
-                        <i data-lucide="eye" class="w-4 h-4"></i> Access
-                    </button>
+                    <button onclick="openFileViewer(${p.id})" class="px-5 py-2 bg-indigo-500/10 text-indigo-500 rounded-lg text-xs font-black hover:bg-indigo-500 hover:text-white transition-all">Access</button>
                 </div>
             `).join('');
-            lucide.createIcons();
         }
 
-        // --- WEB3 ---
-        async function connectWallet() {
-            if (window.ethereum) {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                currentAccount = accounts[0];
-                walletText.innerText = `${currentAccount.substring(0,6)}...${currentAccount.substring(38)}`;
-                showToast("Connected", "Identity proof generated.");
-            } else showToast("Missing Provider", "Install MetaMask", "error");
+        function vote(choice) {
+            showToast("Voting", `Casting power for: ${choice.toUpperCase()}`);
         }
-        connectBtn.onclick = connectWallet;
 
-        // --- HELPERS ---
-        function showToast(title, msg, type = "success") {
+        function showToast(title, msg) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = `glass p-4 rounded-xl shadow-2xl border-l-4 ${type === 'success' ? 'border-emerald-500' : 'border-red-500'} animate-fadeIn w-64`;
-            toast.innerHTML = `<h6 class="font-black text-[10px] uppercase mb-1">${title}</h6><p class="text-zinc-500 text-[10px]">${msg}</p>`;
+            toast.className = `glass p-4 rounded-xl border-l-4 border-indigo-500 animate-fadeIn w-64 shadow-2xl`;
+            toast.innerHTML = `<h6 class="font-black text-[10px] uppercase">${title}</h6><p class="text-zinc-500 text-[10px]">${msg}</p>`;
             container.appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
+            setTimeout(() => toast.remove(), 3000);
         }
 
         renderPapers();
